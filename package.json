@@ -1,0 +1,32 @@
+{
+  "name": "hubot-frinkiac",
+  "version": "0.0.0",
+  "description": "Hubot plugin for Simpson's search engine Frinkiac",
+  "main": "index.coffee",
+  "author": {
+    "name": "Morgan Wigmanich",
+    "email": "okize123@gmail.com",
+    "url": "https://github.com/okize"
+  },
+  "keywords": [
+    "hubot",
+    "hubot-scripts",
+    "frinkiac",
+    "simpsons",
+    "images"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/okize/hubot-frinkiac.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/okize/hubot-frinkiac/issues"
+  },
+  "homepage": "https://github.com/okize/hubot-frinkiac#readme"
+}
