@@ -8,7 +8,7 @@
 #   None
 #
 # Commands:
-#   hubot simpsons search <query> - displays a screenshot from the simpsons related to your search
+#   hubot simpsons search <query> | <caption override> - displays a screenshot from the simpsons related to your search;
 #
 # Notes:
 #   None
@@ -32,32 +32,36 @@ encode = (str) ->
   encodeURIComponent(str).replace /[!'()*]/g, (c) ->
     '%' + c.charCodeAt(0).toString(16)
 
+trimWhitespace = (string) ->
+  string.replace /^\s*|\s*$/g, ''
+
 addLineBreaks = (str) ->
+  wordCount = 5
   newString = ''
   str.split(' ').forEach (word, i) ->
     i++
-    delimiter = if i % 4 then ' ' else '\n'
+    delimiter = if i % wordCount then ' ' else '\n'
     newString += word + delimiter
   newString
 
 getImageUrl = (episode, timestamp, caption) ->
-  encodedUrl = encode(addLineBreaks(caption))
+  encodedUrl = encode(addLineBreaks(trimWhitespace(caption)))
   "https://frinkiac.com/meme/#{episode}/#{timestamp}.jpg?lines=#{encodedUrl}"
 
 module.exports = (robot) ->
   robot.respond /(simpsons search|frinkiac) (.*)/i, (msg) ->
-    query = msg.match[2]
+    query = msg.match[2].split('|');
 
-    axios(getRequestConfig('search', {q: query}))
+    axios(getRequestConfig('search', {q: query[0]}))
       .then (response) ->
         if (response.data.length)
           episode = response.data[0].Episode
           timestamp = response.data[0].Timestamp
           axios(getRequestConfig('caption', {e: episode, t: timestamp}))
             .then (response) ->
-              caption = response.data.Subtitles[0].Content
+              caption = if query[1] then query[1] else response.data.Subtitles[0].Content
               msg.send getImageUrl(episode, timestamp, caption)
         else
-          console.log("D'oh! I couldn't find anything for `#{query}`.");
+          console.log("D'oh! I couldn't find anything for `#{query[0]}`.");
       .catch (error) ->
         console.error(error);
