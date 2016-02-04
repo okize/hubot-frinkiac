@@ -1,13 +1,9 @@
 {
   "name": "hubot-frinkiac",
   "version": "0.0.0",
-  "description": "Hubot plugin for Simpson's search engine Frinkiac",
+  "description": "Hubot plugin for searching for Simpsons screencaps on Frinkiac",
   "main": "index.coffee",
-  "author": {
-    "name": "Morgan Wigmanich",
-    "email": "okize123@gmail.com",
-    "url": "https://github.com/okize"
-  },
+  "author": "",
   "keywords": [
     "hubot",
     "hubot-scripts",
@@ -15,18 +11,29 @@
     "simpsons",
     "images"
   ],
-  "license": "MIT",
+  "license": "ISC",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "script/test || true",
+    "debug": "coffee --nodejs --debug node_modules/.bin/hubot -r ./src"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/okize/hubot-frinkiac.git"
   },
-  "author": "",
-  "license": "ISC",
   "bugs": {
     "url": "https://github.com/okize/hubot-frinkiac/issues"
   },
-  "homepage": "https://github.com/okize/hubot-frinkiac#readme"
+  "homepage": "https://github.com/okize/hubot-frinkiac#readme",
+  "dependencies": {
+    "axios": "~0.9.1",
+    "coffee-script": "^1.9.0"
+  },
+  "devDependencies": {
+    "chai": "^3.0.0",
+    "express": "^4.12.4",
+    "hubot": "^2.0.0",
+    "mocha": "^2.0.0",
+    "sinon": "^1.10.0",
+    "sinon-chai": "^2.5.0"
+  }
 }
