@@ -11,7 +11,7 @@
     "simpsons",
     "images"
   ],
-  "license": "ISC",
+  "license": "MIT",
   "scripts": {
     "test": "script/test || true",
     "debug": "coffee --nodejs --debug node_modules/.bin/hubot -r ./src"
