@@ -19,30 +19,30 @@
 axios = require('axios')
 
 getRequestConfig = (endpoint, params) ->
-  queryUrl = 'https://frinkiac.com/api/search'
+  searchUrl = 'https://frinkiac.com/api/search'
   captionUrl = 'https://frinkiac.com/api/caption'
-  switch endpoint
-    when 'search'
-      return {
-        method: 'get'
-        url: queryUrl
-        params: params
-      }
-    when 'caption'
-      return {
-        method: 'get'
-        url: captionUrl
-        params: params
-      }
-    else
-      throw new Error 'missing endpoint argument'
+  url = if endpoint is 'search' then searchUrl else captionUrl
+  return {
+    method: 'get'
+    url: url
+    params: params
+  }
 
 encode = (str) ->
   encodeURIComponent(str).replace /[!'()*]/g, (c) ->
     '%' + c.charCodeAt(0).toString(16)
 
+addLineBreaks = (str) ->
+  newString = ''
+  str.split(' ').forEach (word, i) ->
+    i++
+    delimiter = if i % 4 then ' ' else '\n'
+    newString += word + delimiter
+  newString
+
 getImageUrl = (episode, timestamp, caption) ->
-  "https://frinkiac.com/meme/#{episode}/#{timestamp}.jpg?lines=#{encode(caption)}"
+  encodedUrl = encode(addLineBreaks(caption))
+  "https://frinkiac.com/meme/#{episode}/#{timestamp}.jpg?lines=#{encodedUrl}"
 
 module.exports = (robot) ->
   robot.respond /(simpsons search|frinkiac) (.*)/i, (msg) ->
