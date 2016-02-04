@@ -46,7 +46,7 @@ getImageUrl = (episode, timestamp, caption) ->
 
 module.exports = (robot) ->
   robot.respond /(simpsons search|frinkiac) (.*)/i, (msg) ->
-    query = msg.match[1]
+    query = msg.match[2]
 
     axios(getRequestConfig('search', {q: query}))
       .then (response) ->
