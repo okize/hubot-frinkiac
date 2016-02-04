@@ -48,12 +48,12 @@ module.exports = (robot) ->
   robot.respond /(simpsons search|frinkiac) (.*)/i, (msg) ->
     query = msg.match[1]
 
-    axios getRequestConfig('search', {q: query})
+    axios(getRequestConfig('search', {q: query}))
       .then (response) ->
         if (response.data.length)
           episode = response.data[0].Episode
           timestamp = response.data[0].Timestamp
-          axios getRequestConfig('caption', {e: episode, t: timestamp})
+          axios(getRequestConfig('caption', {e: episode, t: timestamp}))
             .then (response) ->
               caption = response.data.Subtitles[0].Content
               msg.send getImageUrl(episode, timestamp, caption)
