@@ -35,12 +35,29 @@ encode = (str) ->
 getImageUrl = (episode, timestamp, caption) ->
   "https://frinkiac.com/meme/#{episode}/#{timestamp}.jpg?lines=#{encode(caption)}"
 
+getLongestWordLength = (words) ->
+  longestWordLength = 0
+  words.forEach (word) ->
+    longestWordLength = word.length if word.length > longestWordLength
+  longestWordLength
+
+getNumberOfWordsBeforeBreaking = (words) ->
+  longestWordLength = getLongestWordLength(words)
+  if longestWordLength <= 5
+    wordsBeforeBreaking = 5
+  else if 5 < longestWordLength <= 8
+    wordsBeforeBreaking = 4
+  else
+    wordsBeforeBreaking = 3
+  wordsBeforeBreaking
+
 addLineBreaks = (str) ->
-  wordCount = 4
   newString = ''
-  str.split(' ').forEach (word, i) ->
+  words = str.split(' ')
+  wordsBeforeBreaking = getNumberOfWordsBeforeBreaking(words)
+  words.forEach (word, i) ->
     i++
-    delimiter = if i % wordCount then ' ' else '\n'
+    delimiter = if i % wordsBeforeBreaking then ' ' else '\n'
     newString += word + delimiter
   newString
 
