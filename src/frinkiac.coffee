@@ -36,7 +36,7 @@ trimWhitespace = (string) ->
   string.replace /^\s*|\s*$/g, ''
 
 addLineBreaks = (str) ->
-  wordCount = 5
+  wordCount = 4
   newString = ''
   str.split(' ').forEach (word, i) ->
     i++
@@ -47,6 +47,17 @@ addLineBreaks = (str) ->
 getImageUrl = (episode, timestamp, caption) ->
   encodedUrl = encode(addLineBreaks(trimWhitespace(caption)))
   "https://frinkiac.com/meme/#{episode}/#{timestamp}.jpg?lines=#{encodedUrl}"
+
+combineCaptions = (captions) ->
+  if captions.length <= 3
+    newCaption = ''
+    captions.forEach (caption, i) ->
+      newCaption += caption.Content
+      unless i == (captions.length - 1)
+        newCaption += '\n'
+    newCaption
+  else
+    captions[0].Content
 
 module.exports = (robot) ->
   robot.respond /(simpsons search|frinkiac) (.*)/i, (msg) ->
@@ -65,7 +76,7 @@ module.exports = (robot) ->
           else
             axios(getRequestConfig('caption', {e: episode, t: timestamp}))
               .then (response) ->
-                msg.send getImageUrl(episode, timestamp, response.data.Subtitles[0].Content)
+                msg.send getImageUrl(episode, timestamp, combineCaptions(response.data.Subtitles))
 
         else
           console.log("D'oh! I couldn't find anything for `#{query[0]}`.");
