@@ -5,7 +5,7 @@
 
 # hubot-frinkiac
 
-Hubot plugin for searching for Simpsons screencaps on [Frinkiac](https://frinkiac.com/)
+Hubot plugin for searching for Simpsons screencaps on the amazing [Frinkiac](https://frinkiac.com/) search engine (check it out!).
 
 See [`src/frinkiac.coffee`](src/frinkiac.coffee) for full documentation.
 
