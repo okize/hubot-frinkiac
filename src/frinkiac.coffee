@@ -32,8 +32,8 @@ encode = (str) ->
   encodeURIComponent(str).replace /[!'()*]/g, (c) ->
     '%' + c.charCodeAt(0).toString(16)
 
-trimWhitespace = (string) ->
-  string.replace /^\s*|\s*$/g, ''
+getImageUrl = (episode, timestamp, caption) ->
+  "https://frinkiac.com/meme/#{episode}/#{timestamp}.jpg?lines=#{encode(caption)}"
 
 addLineBreaks = (str) ->
   wordCount = 4
@@ -44,15 +44,17 @@ addLineBreaks = (str) ->
     newString += word + delimiter
   newString
 
-getImageUrl = (episode, timestamp, caption) ->
-  encodedUrl = encode(addLineBreaks(trimWhitespace(caption)))
-  "https://frinkiac.com/meme/#{episode}/#{timestamp}.jpg?lines=#{encodedUrl}"
+trimWhitespace = (string) ->
+  string.replace /^\s*|\s*$/g, ''
+
+formatCaption = (caption) ->
+  addLineBreaks(trimWhitespace(caption))
 
 combineCaptions = (captions) ->
-  if captions.length <= 3
+  if captions.length <= 4
     newCaption = ''
     captions.forEach (caption, i) ->
-      newCaption += caption.Content
+      newCaption += formatCaption(caption.Content)
       unless i == (captions.length - 1)
         newCaption += '\n'
     newCaption
@@ -71,7 +73,7 @@ module.exports = (robot) ->
           timestamp = response.data[0].Timestamp
 
           if customCaption
-            msg.send getImageUrl(episode, timestamp, trimWhitespace(customCaption))
+            msg.send getImageUrl(episode, timestamp, formatCaption(customCaption))
 
           else
             axios(getRequestConfig('caption', {e: episode, t: timestamp}))
