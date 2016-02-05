@@ -50,18 +50,25 @@ getImageUrl = (episode, timestamp, caption) ->
 
 module.exports = (robot) ->
   robot.respond /(simpsons search|frinkiac) (.*)/i, (msg) ->
-    query = msg.match[2].split('|');
+    query = msg.match[2].split('|')
+    customCaption = query[1]
 
     axios(getRequestConfig('search', {q: query[0]}))
       .then (response) ->
         if (response.data.length)
           episode = response.data[0].Episode
           timestamp = response.data[0].Timestamp
-          axios(getRequestConfig('caption', {e: episode, t: timestamp}))
-            .then (response) ->
-              caption = if query[1] then query[1] else response.data.Subtitles[0].Content
-              msg.send getImageUrl(episode, timestamp, caption)
+
+          if customCaption
+            msg.send getImageUrl(episode, timestamp, trimWhitespace(customCaption))
+
+          else
+            axios(getRequestConfig('caption', {e: episode, t: timestamp}))
+              .then (response) ->
+                msg.send getImageUrl(episode, timestamp, response.data.Subtitles[0].Content)
+
         else
           console.log("D'oh! I couldn't find anything for `#{query[0]}`.");
+
       .catch (error) ->
         console.error(error);
