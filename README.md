@@ -7,16 +7,39 @@
 
 Hubot plugin for searching for Simpsons screencaps on [Frinkiac](https://frinkiac.com/)
 
+See [`src/frinkiac.coffee`](src/frinkiac.coffee) for full documentation.
+
 ## Installation
 
-Run the following command to install this module as a Hubot dependency
+In hubot project repo, run:
+
+`npm install hubot-frinkiac --save`
+
+Then add **hubot-frinkiac** to your `external-scripts.json`:
+
+```json
+[
+  "hubot-frinkiac"
+]
+```
+
+## Sample Interaction
 
 ```
-$ npm install hubot-frinkiac --save
+user1>> hubot simpsons search Me fail English? That's unpossible.
+hubot>> returns captioned Simpsons image
 ```
 
-Add the **hubot-frinkiac** to your `external-scripts.json` (you may need to create this file).
+There is a also an alias for `simpsons search` called `frinkiac`:
 
 ```
-["hubot-frinkiac"]
+user1>> hubot frinkiac You don't win friends with salad.
+hubot>> also returns captioned Simpsons image
+```
+
+Additionally, a second argument can be supplied (delineated by a pipe character) to override the image caption.
+
+```
+user1>> hubot simpsons search Mmmm, sacrilicious. | Mmmm, cromulent.
+hubot>> returns Simpsons image with a caption of the second argument
 ```
