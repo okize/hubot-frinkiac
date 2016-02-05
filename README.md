@@ -26,20 +26,24 @@ Then add **hubot-frinkiac** to your `external-scripts.json`:
 ## Sample Interaction
 
 ```
-user1>> hubot simpsons search Me fail English? That's unpossible.
-hubot>> returns captioned Simpsons image
+user> hubot simpsons search You don't win friends with salad.
 ```
 
-There is a also an alias for `simpsons search` called `frinkiac`:
-
-```
-user1>> hubot frinkiac You don't win friends with salad.
-hubot>> also returns captioned Simpsons image
-```
+![Example 1](https://raw.github.com/okize/hubot-frinkiac/gh-pages/example1.jpg)
 
 Additionally, a second argument can be supplied (delineated by a pipe character) to override the image caption.
 
 ```
-user1>> hubot simpsons search Mmmm, sacrilicious. | Mmmm, cromulent.
-hubot>> returns Simpsons image with a caption of the second argument
+user> hubot simpsons search You don't win friends with salad. | ♪ You don't win friends with salad! ♪
 ```
+
+![Example 1](https://raw.github.com/okize/hubot-frinkiac/gh-pages/example2.jpg)
+
+There is a also an alias for `simpsons search` called `frinkiac`:
+
+```
+user> hubot frinkiac Me fail English? That's unpossible.
+hubot>> also returns captioned Simpsons image
+```
+
+![Example 1](https://raw.github.com/okize/hubot-frinkiac/gh-pages/example3.jpg)
