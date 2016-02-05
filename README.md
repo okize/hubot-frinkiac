@@ -43,7 +43,6 @@ There is a also an alias for `simpsons search` called `frinkiac`:
 
 ```
 user> hubot frinkiac Me fail English? That's unpossible.
-hubot>> also returns captioned Simpsons image
 ```
 
 ![Example 1](https://raw.github.com/okize/hubot-frinkiac/gh-pages/example3.jpg)
