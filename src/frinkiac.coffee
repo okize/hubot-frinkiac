@@ -8,7 +8,7 @@
 #   None
 #
 # Commands:
-#   hubot simpsons search <query> | <caption override> - displays a screenshot from the simpsons related to your search;
+#   hubot simpsons search <query> | <caption override> - displays a screenshot from the simpsons related to your search
 #
 # Notes:
 #   None
@@ -16,6 +16,7 @@
 # Author:
 #   None
 
+require('es6-promise').polyfill()
 axios = require('axios')
 
 getRequestConfig = (endpoint, params) ->
