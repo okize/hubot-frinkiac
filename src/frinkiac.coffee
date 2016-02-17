@@ -34,7 +34,7 @@ encode = (str) ->
     '%' + c.charCodeAt(0).toString(16)
 
 getImageUrl = (episode, timestamp, caption) ->
-  "https://frinkiac.com/meme/#{episode}/#{timestamp}.jpg?lines=#{encode(caption)}"
+  "https://frinkiac.com/meme/#{episode}/#{timestamp}.jpg?lines=#{encode(caption)}#.jpg"
 
 getLongestWordLength = (words) ->
   longestWordLength = 0
