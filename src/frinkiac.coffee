@@ -33,6 +33,8 @@ encode = (str) ->
   encodeURIComponent(str).replace /[!'()*]/g, (c) ->
     '%' + c.charCodeAt(0).toString(16)
 
+# we append '#.jpg' to url string because some chat clients (eg. hip chat)
+# will not exapand images if they don't end in an image extension
 getImageUrl = (episode, timestamp, caption) ->
   "https://frinkiac.com/meme/#{episode}/#{timestamp}.jpg?lines=#{encode(caption)}#.jpg"
 
