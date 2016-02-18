@@ -80,7 +80,7 @@ combineCaptions = (captions) ->
     captions[0].Content
 
 module.exports = (robot) ->
-  robot.respond /(simpsons search|frinkiac|me) (.*)/i, (msg) ->
+  robot.respond /(simpsons (search|me)|frinkiac) (.*)/i, (msg) ->
     query = msg.match[2].split('|')
     customCaption = query[1]
 
