@@ -8,7 +8,7 @@
 #   None
 #
 # Commands:
-#   hubot simpsons search <query> | <caption override> - displays a screenshot from the simpsons related to your search
+#   hubot simpsons me <query> | <caption override> - displays a screenshot from the simpsons related to your search
 #
 # Notes:
 #   None

@@ -12,14 +12,14 @@ describe 'hubot-frinkiac', ->
 
     require('../src/frinkiac')(@robot)
 
-  it 'registers a respond listener for "simpsons search <query>"', ->
-    expect(@robot.respond).to.have.been.calledWithMatch sinon.match((val) ->
-      val.test "simpsons search d'oh!"
-    )
-
   it 'registers a respond listener for "simpsons me <query>"', ->
     expect(@robot.respond).to.have.been.calledWithMatch sinon.match((val) ->
       val.test "simpsons me d'oh!"
+    )
+
+  it 'registers a respond listener for "simpsons search <query>"', ->
+    expect(@robot.respond).to.have.been.calledWithMatch sinon.match((val) ->
+      val.test "simpsons search me fail english?"
     )
 
   it 'registers a respond listener for "frinkiac <query>"', ->

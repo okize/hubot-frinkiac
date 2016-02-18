@@ -26,7 +26,7 @@ Then add **hubot-frinkiac** to your `external-scripts.json`:
 ## Sample Interaction
 
 ```
-user> hubot simpsons search You don't win friends with salad.
+user> hubot simpsons me You don't win friends with salad.
 ```
 
 ![Example 1](https://raw.github.com/okize/hubot-frinkiac/gh-pages/example1.jpg)
@@ -34,12 +34,12 @@ user> hubot simpsons search You don't win friends with salad.
 Additionally, a second argument can be supplied (delineated by a pipe character) to override the image caption.
 
 ```
-user> hubot simpsons search You don't win friends with salad. | ♪ You don't win friends with salad! ♪
+user> hubot simpsons me You don't win friends with salad. | ♪ You don't win friends with salad! ♪
 ```
 
 ![Example 1](https://raw.github.com/okize/hubot-frinkiac/gh-pages/example2.jpg)
 
-There is a also an alias for `simpsons search` called `frinkiac`:
+There are also command aliases: `frinkiac` & `simpsons search`:
 
 ```
 user> hubot frinkiac Me fail English? That's unpossible.
