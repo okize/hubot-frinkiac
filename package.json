@@ -1,6 +1,6 @@
 {
   "name": "hubot-frinkiac",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Hubot plugin for searching for Simpsons screencaps on Frinkiac",
   "main": "index.coffee",
   "author": "",
