@@ -17,6 +17,11 @@ describe 'hubot-frinkiac', ->
       val.test "simpsons search d'oh!"
     )
 
+  it 'registers a respond listener for "simpsons me <query>"', ->
+    expect(@robot.respond).to.have.been.calledWithMatch sinon.match((val) ->
+      val.test "simpsons me d'oh!"
+    )
+
   it 'registers a respond listener for "frinkiac <query>"', ->
     expect(@robot.respond).to.have.been.calledWithMatch sinon.match((val) ->
       val.test "frinkiac i'd be stupid not to do this"
