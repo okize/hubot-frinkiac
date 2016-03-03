@@ -89,8 +89,9 @@ module.exports = (robot) ->
     axios(getRequestConfig('search', {q: query[0]}))
       .then (response) ->
         if (response.data.length)
-          episode = response.data[0].Episode
-          timestamp = response.data[0].Timestamp
+          frame = Math.floor(Math.random() * response.data.length)
+          episode = response.data[frame].Episode
+          timestamp = response.data[frame].Timestamp
 
           if customCaption
             msg.send getImageUrl(episode, timestamp, formatCaption(customCaption))
