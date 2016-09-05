@@ -25,9 +25,9 @@
   },
   "homepage": "https://github.com/okize/hubot-frinkiac#readme",
   "dependencies": {
-    "axios": "^0.13.0",
-    "coffee-script": "^1.9.0",
-    "es6-promise": "^3.2.0"
+    "axios": "~0.14.0",
+    "coffee-script": "~1.10.0",
+    "es6-promise": "~3.2.0"
   },
   "devDependencies": {
     "chai": "^3.0.0",
