@@ -7,6 +7,8 @@
 
 Hubot plugin for searching for Simpsons screencaps on the amazing [Frinkiac](https://frinkiac.com/) search engine (check it out!).
 
+It also supports Futurama screenshots care of [Morbotron](https://morbotron.com/). Just replace 'simpsons me' with 'futurama me'
+
 See [`src/frinkiac.coffee`](src/frinkiac.coffee) for full documentation.
 
 ## Installation

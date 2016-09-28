@@ -8,7 +8,8 @@
 #   None
 #
 # Commands:
-#   hubot simpsons me <query> | <caption override> - displays a screenshot from the simpsons related to your search
+#   hubot simpsons me <query> | <caption override> - displays a screenshot from The Simpsons related to your search
+#   hubot futurama me <query> | <caption override> - displays a screenshot from Futurama related to your search
 #
 # Notes:
 #   None
@@ -19,9 +20,15 @@
 require('es6-promise').polyfill()
 axios = require('axios')
 
-getRequestConfig = (endpoint, params) ->
-  searchUrl = 'https://frinkiac.com/api/search'
-  captionUrl = 'https://frinkiac.com/api/caption'
+franchiseServices = {
+  "simpsons": "frinkiac.com",
+  "futurama": "morbotron.com",
+}
+
+getRequestConfig = (franchise, endpoint, params) ->
+  apiBaseUrl = getFranchiseServiceUrl(franchise)
+  searchUrl = "#{apiBaseUrl}/api/search"
+  captionUrl = "#{apiBaseUrl}/api/caption"
   url = if endpoint is 'search' then searchUrl else captionUrl
   return {
     method: 'get'
@@ -35,8 +42,13 @@ encode = (str) ->
 
 # we append '#.jpg' to url string because some chat clients (eg. hip chat)
 # will not exapand images if they don't end in an image extension
-getImageUrl = (episode, timestamp, caption) ->
-  "https://frinkiac.com/meme/#{episode}/#{timestamp}.jpg?lines=#{encode(caption)}#.jpg"
+getImageUrl = (franchise, episode, timestamp, caption) ->
+  apiBaseUrl = getFranchiseServiceUrl(franchise)
+  "#{apiBaseUrl}/meme/#{episode}/#{timestamp}.jpg?lines=#{encode(caption)}#.jpg"
+
+getFranchiseServiceUrl = (franchise) ->
+  if !franchise of franchiseServices then franchise = "simpsons"
+  return "https://#{franchiseServices[franchise]}"
 
 getLongestWordLength = (words) ->
   longestWordLength = 0
@@ -82,11 +94,12 @@ combineCaptions = (captions) ->
     captions[0].Content
 
 module.exports = (robot) ->
-  robot.respond /(simpsons (search|me)|frinkiac) (.*)/i, (msg) ->
-    query = msg.match[3].split('|')
+  robot.respond /((simpsons|futurama) (search|me)|frinkiac) (.*)/i, (msg) ->
+    franchise = msg.match[2] || "simpsons"
+    query = msg.match[4].split('|')
     customCaption = query[1]
 
-    axios(getRequestConfig('search', {q: query[0]}))
+    axios(getRequestConfig(franchise, 'search', {q: query[0]}))
       .then (response) ->
         if (response.data.length)
           frame = Math.floor(Math.random() * response.data.length)
@@ -94,12 +107,12 @@ module.exports = (robot) ->
           timestamp = response.data[frame].Timestamp
 
           if customCaption
-            msg.send getImageUrl(episode, timestamp, formatCaption(customCaption))
+            msg.send getImageUrl(franchise, episode, timestamp, formatCaption(customCaption))
 
           else
-            axios(getRequestConfig('caption', {e: episode, t: timestamp}))
+            axios(getRequestConfig(franchise, 'caption', {e: episode, t: timestamp}))
               .then (response) ->
-                msg.send getImageUrl(episode, timestamp, combineCaptions(response.data.Subtitles))
+                msg.send getImageUrl(franchise, episode, timestamp, combineCaptions(response.data.Subtitles))
 
         else
           console.log("D'oh! I couldn't find anything for `#{query[0]}`.");
