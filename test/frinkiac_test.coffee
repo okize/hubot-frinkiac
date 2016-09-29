@@ -31,3 +31,13 @@ describe 'hubot-frinkiac', ->
     expect(@robot.hear).to.not.have.been.calledWith sinon.match((val) ->
       val.test "simpsons search"
     )
+
+  it 'registers a respond listener for "futurama me <query>"', ->
+    expect(@robot.respond).to.have.been.calledWithMatch sinon.match((val) ->
+      val.test "futurama me good news, everyone!"
+    )
+
+  it 'registers a respond listener for "futurama search <query>"', ->
+    expect(@robot.respond).to.have.been.calledWithMatch sinon.match((val) ->
+      val.test "futurama search why not zoidberg?"
+    )

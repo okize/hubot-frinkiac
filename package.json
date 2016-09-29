@@ -1,7 +1,7 @@
 {
   "name": "hubot-frinkiac",
-  "version": "2.0.5",
-  "description": "Hubot plugin for searching for Simpsons screencaps on Frinkiac",
+  "version": "2.1.0",
+  "description": "Hubot plugin for searching for Simpsons and Futurama screencaps on Frinkiac and Morbotron",
   "main": "index.coffee",
   "author": "",
   "keywords": [
@@ -9,7 +9,9 @@
     "hubot-scripts",
     "frinkiac",
     "simpsons",
-    "images"
+    "images",
+    "futurama",
+    "morbotron"
   ],
   "license": "MIT",
   "scripts": {
