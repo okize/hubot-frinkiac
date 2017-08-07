@@ -10,6 +10,8 @@
 # Commands:
 #   hubot simpsons me <query> | <caption override> - displays a screenshot from The Simpsons related to your search
 #   hubot futurama me <query> | <caption override> - displays a screenshot from Futurama related to your search
+#   hubot rick me <query> | <caption override> - displays a screenshot from Rick & Morty related to your search
+#   hubot morty me <query> | <caption override> - displays a screenshot from Rick & Morty related to your search
 #
 # Notes:
 #   None
@@ -23,6 +25,8 @@ axios = require('axios')
 franchiseServices = {
   "simpsons": "frinkiac.com",
   "futurama": "morbotron.com",
+  "rick": "masterofallscience.com",
+  "morty": "masterofallscience.com",
 }
 
 getRequestConfig = (franchise, endpoint, params) ->
@@ -94,7 +98,7 @@ combineCaptions = (captions) ->
     captions[0].Content
 
 module.exports = (robot) ->
-  robot.respond /((simpsons|futurama) (search|me)|frinkiac) (.*)/i, (msg) ->
+  robot.respond /((simpsons|futurama|rick|morty) (search|me)|frinkiac) (.*)/i, (msg) ->
     franchise = msg.match[2] || "simpsons"
     query = msg.match[4].split('|')
     customCaption = query[1]
